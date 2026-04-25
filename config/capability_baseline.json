@@ -1,0 +1,32 @@
+{
+  "dimensions": {
+    "cognition": {
+      "current_score": 0,
+      "history": [],
+      "key_behaviors": [],
+      "trend": "neutral"
+    },
+    "emotion": {
+      "current_score": 0,
+      "history": [],
+      "key_behaviors": [],
+      "trend": "neutral"
+    },
+    "execution": {
+      "current_score": 0,
+      "history": [],
+      "key_behaviors": [],
+      "trend": "neutral"
+    },
+    "relation": {
+      "current_score": 0,
+      "history": [],
+      "key_behaviors": [],
+      "trend": "neutral"
+    }
+  },
+  "metadata": {
+    "last_updated": "2026-04-25",
+    "version": "2.0"
+  }
+}
