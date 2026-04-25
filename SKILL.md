@@ -146,6 +146,29 @@
 - 近7天重复≥2次 → 标记「模式信号」，在 Step 6 中触发深度干预
 - 记录本次新出现的 pattern 到 retrieval_index.json
 
+### Step 5.5: Diagnostician 融合
+
+在所有引擎输出中，找到"最深的根因"和"最表面的卡点"，打包成核心诊断。
+
+融合规则：
+1. 如果 habit_behavior_engine 输出 M不足（动机不足），同时 psychodynamic_engine 也输出深层恐惧 → 根因是恐惧，动机不足是表层表现
+2. 如果多个引擎同时输出，且没有明显层级 → 选择最近7天频率最高的模式作为主诊断
+3. 如果模式A是模式B的上游（如"害怕失败"导致"知道但不做"）→ 优先处理上游
+4. 如果没有引擎输出异常，但模式频率≥3 → 以模式为主诊断
+
+输出格式：
+```json
+{
+  "primary_diagnosis": "深层根因（冰山3层以下）",
+  "surface_diagnosis": "表面卡点（行为层面）",
+  "triggered_dimensions": ["execution", "communication"],
+  "recommended_skill_dimension": "execution",
+  "reason": "根因是恐惧，但execution是当前最紧迫的触发点"
+}
+```
+
+这个输出传递给 Step 6 决策器。
+
 ---
 
 ## Step 6: Orchestrator 决策
