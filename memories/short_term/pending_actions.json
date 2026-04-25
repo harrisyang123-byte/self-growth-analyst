@@ -1,0 +1,30 @@
+{
+  "actions": [
+    {
+      "id": "pa-001",
+      "action": "每天15分钟补偿机制",
+      "from_date": "2026-04-15",
+      "from_dimension": "execution",
+      "trigger_context": "执行力干预触发",
+      "verification_keywords": ["补上了", "补偿了", "做了15分钟"],
+      "status": "pending",
+      "check_count": 0,
+      "last_check": null
+    },
+    {
+      "id": "pa-002",
+      "action": "汇报前用一句话确认核心观点",
+      "from_date": "2026-04-24",
+      "from_dimension": "communication",
+      "trigger_context": "沟通表达干预触发",
+      "verification_keywords": ["我先说了", "核心观点是", "一句话概括"],
+      "status": "pending",
+      "check_count": 0,
+      "last_check": null
+    }
+  ],
+  "meta": {
+    "last_updated": "2026-04-25T00:00:00+08:00",
+    "total_pending": 2
+  }
+}

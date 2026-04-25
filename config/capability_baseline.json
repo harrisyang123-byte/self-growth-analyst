@@ -1,32 +1,29 @@
 {
   "dimensions": {
-    "cognition": {
-      "current_score": 0,
-      "history": [],
-      "key_behaviors": [],
-      "trend": "neutral"
-    },
-    "emotion": {
-      "current_score": 0,
-      "history": [],
-      "key_behaviors": [],
-      "trend": "neutral"
-    },
-    "execution": {
-      "current_score": 0,
-      "history": [],
-      "key_behaviors": [],
-      "trend": "neutral"
-    },
-    "relation": {
-      "current_score": 0,
-      "history": [],
-      "key_behaviors": [],
-      "trend": "neutral"
-    }
+    "cognition": {"current_score": 0, "history": [], "key_behaviors": [], "trend": "neutral", "system_calculated_score": null, "blind_spot_index": null},
+    "learning": {"current_score": 0, "history": [], "key_behaviors": [], "trend": "neutral", "system_calculated_score": null, "blind_spot_index": null},
+    "self_awareness": {"current_score": 0, "history": [], "key_behaviors": [], "trend": "neutral", "system_calculated_score": null, "blind_spot_index": null},
+    "execution": {"current_score": 0, "history": [], "key_behaviors": [], "trend": "neutral", "system_calculated_score": null, "blind_spot_index": null},
+    "decision": {"current_score": 0, "history": [], "key_behaviors": [], "trend": "neutral", "system_calculated_score": null, "blind_spot_index": null},
+    "emotional_intelligence": {"current_score": 0, "history": [], "key_behaviors": [], "trend": "neutral", "system_calculated_score": null, "blind_spot_index": null},
+    "communication": {"current_score": 0, "history": [], "key_behaviors": [], "trend": "neutral", "system_calculated_score": null, "blind_spot_index": null},
+    "influence": {"current_score": 0, "history": [], "key_behaviors": [], "trend": "neutral", "system_calculated_score": null, "blind_spot_index": null},
+    "business_acumen": {"current_score": 0, "history": [], "key_behaviors": [], "trend": "neutral", "system_calculated_score": null, "blind_spot_index": null},
+    "strategic_thinking": {"current_score": 0, "history": [], "key_behaviors": [], "trend": "neutral", "system_calculated_score": null, "blind_spot_index": null},
+    "creativity": {"current_score": 0, "history": [], "key_behaviors": [], "trend": "neutral", "system_calculated_score": null, "blind_spot_index": null},
+    "resilience": {"current_score": 0, "history": [], "key_behaviors": [], "trend": "neutral", "system_calculated_score": null, "blind_spot_index": null},
+    "time_management": {"current_score": 0, "history": [], "key_behaviors": [], "trend": "neutral", "system_calculated_score": null, "blind_spot_index": null},
+    "social_wisdom": {"current_score": 0, "history": [], "key_behaviors": [], "trend": "neutral", "system_calculated_score": null, "blind_spot_index": null},
+    "leadership": {"current_score": 0, "history": [], "key_behaviors": [], "trend": "neutral", "system_calculated_score": null, "blind_spot_index": null},
+    "financial_literacy": {"current_score": 0, "history": [], "key_behaviors": [], "trend": "neutral", "system_calculated_score": null, "blind_spot_index": null},
+    "health_management": {"current_score": 0, "history": [], "key_behaviors": [], "trend": "neutral", "system_calculated_score": null, "blind_spot_index": null},
+    "political_wisdom": {"current_score": 0, "history": [], "key_behaviors": [], "trend": "neutral", "system_calculated_score": null, "blind_spot_index": null},
+    "information_integration": {"current_score": 0, "history": [], "key_behaviors": [], "trend": "neutral", "system_calculated_score": null, "blind_spot_index": null},
+    "goal_drive": {"current_score": 0, "history": [], "key_behaviors": [], "trend": "neutral", "system_calculated_score": null, "blind_spot_index": null}
   },
   "metadata": {
-    "last_updated": "2026-04-25",
-    "version": "2.0"
+    "last_updated": "2026-04-25T00:00:00+08:00",
+    "version": "2.0",
+    "note": "v2.0: 扩展为20维，新增 system_calculated_score + blind_spot_index"
   }
 }
