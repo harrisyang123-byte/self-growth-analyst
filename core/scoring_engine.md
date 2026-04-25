@@ -77,6 +77,46 @@
 
 ---
 
+## 备选证据来源优先级
+
+当主来源不可用时，按以下优先级使用证据：
+
+### 证据优先级
+1. **daily_raw/** 碎碎念（主来源，质量最高）
+   - 包含具体日期+行为描述+情绪词
+   - 可直接用于评分计算
+
+2. **working_context.md** 中的维度评分变化记录（备选来源）
+   - 标注[待行为证据验证]
+   - 用于系统首次激活时 seeding
+
+3. **retrieval_index.json** 中的维度触发频率（辅助参考）
+   - 仅用于判断"该维度有模式"而非评分
+
+### Scenario: 主来源不可用
+- **WHEN** daily_raw/ 无数据但 working_context 有评分
+- **THEN** 使用 working_context 作为评分依据
+
+## Baseline Seeding 逻辑
+
+当系统首次激活时（data_accumulation_start 为 null），执行 seeding：
+
+### Seeding 规则
+```python
+for dimension in baseline.dimensions:
+    if dimension.current_score == 0 and dimension in working_context:
+        dimension.current_score = working_context[dimension].score
+        dimension.history.append({
+            "source": "working_context_seeding",
+            "date": <today>,
+            "note": "从working_context迁移，需要后续行为证据验证"
+        })
+```
+
+### [待验证]标注说明
+- 被seeding的评分在后续碎碎念出现时自动更新
+- 标注格式：历史记录中标注 `source: "working_context_seeding"`
+
 ---
 
 ## 双轨计分说明
