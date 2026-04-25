@@ -1,0 +1,10 @@
+{
+  "dimensions": [],
+  "behavior_frequencies": {},
+  "pattern_triggers": [],
+  "metadata": {
+    "initialized_at": "2026-04-25T00:00:00+08:00",
+    "data_accumulation_weeks": 0,
+    "note": "前4周只记录不计算，数据积累期结束后启动概率推断"
+  }
+}
