@@ -1,3 +1,5 @@
+<!-- 高位描述见 SKILL.md，本文件为精确执行规格 -->
+
 # Growth Orchestrator — 成长调度器
 
 ## 角色定义
@@ -90,11 +92,65 @@
 - 保护模式激活中
 
 ### Step 5: 干预（Coach）— 仅在触发时
+
+**引擎加载规则：** L1引擎始终加载，L2引擎根据关键词判断，L3引擎仅在cron或exam_mode下加载。
+
 1. 加载对应的 `skills_library/<dimension>/skill.yaml`
 2. 执行 `diagnosis_flow`
 3. 生成1个核心问题 + 1个具体可执行的微小行动
 4. 通过 message tool 发送（Feishu）
 5. 在 `.orchestrator_state.json` 的 `pending_actions` 中记录
+
+### Step 5.5: Diagnostician 融合
+
+融合规则：
+1. habit_behavior + psychodynamic 同时输出 → 深层恐惧优先
+2. 多引擎无层级 → 选7天频率最高模式为主诊断
+3. 模式A是模式B上游 → 优先处理上游
+4. 无引擎异常但频率≥3 → 以模式为主诊断
+
+输出：
+```json
+{
+  "primary_diagnosis": "...",
+  "surface_diagnosis": "...",
+  "triggered_dimensions": [...],
+  "recommended_skill_dimension": "..."
+}
+```
+
+## 三级引擎加载策略
+
+为了防止上下文溢出，引擎按三级分类加载：
+
+### L1 常驻引擎（每次碎碎念必加载）
+- linguistic_analyzer.md — 归因/情绪/防卫分析
+- auto_insight_generator.md — 三段式自动洞察
+
+### L2 触发引擎（关键词/条件命中才加载）
+- habit_behavior_engine.md — "知道但不做"关键词命中时
+- psychodynamic_engine.md — 冰山洞穴词（老板/否定/害怕/不配）命中时
+- veracity_checker.md — 重大成败自述时
+- strategic_alignment_engine.md — 周考模式或"目标/战略/方向"关键词时
+
+### L3 周期引擎（cron触发，不随碎碎念加载）
+- scoring_engine.md — 周/月考时
+- opportunity_cost_engine.md — 周日审计时
+- wealth_engine.md — 月度加载
+- big_five_ocean.md — 90天积累后每季度
+
+### 加载判断逻辑
+```python
+for engine in 候选引擎列表:
+    if engine.tier == "L1":
+        load(engine)  # 始终加载
+    elif engine.tier == "L2" and keyword_triggered(engine):
+        load(engine)  # 条件触发
+    elif engine.tier == "L3" and (cron_triggered or exam_mode):
+        load(engine)  # 仅周期/cron触发
+```
+
+---
 
 ### Step 6: 追踪（Archivist）
 1. 更新 `.orchestrator_state.json`：
