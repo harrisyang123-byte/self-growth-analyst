@@ -77,7 +77,50 @@
 
 ---
 
-## 自检清单
+---
+
+## 双轨计分说明
+
+本引擎输出两个分数：
+- **progress_score**：和自己比（本周-上周）
+- **wealth_score**：和财富目标比（current × leverage_weight）
+
+```
+total_dimension_score = progress_score + wealth_score
+```
+
+### 财富距离计算
+
+每个维度计算：
+```
+wealth_distance = wealth_anchor - current_score
+```
+- 距离越大，说明离百富榜级别越远，越需要优先投入
+
+### 维度优先级排序
+
+```
+优先投入维度 = wealth_distance × leverage_weight
+```
+排序后输出TOP3需要优先投入的维度
+
+### 周报双轨格式
+
+```markdown
+## 本周双轨报告
+
+### 进步分TOP3
+1. execution: +0.5
+2. communication: +0.3
+3. strategic_thinking: +0.2
+
+### 财富距离TOP3（需要优先投入）
+1. business_acumen: 距离4分 × 杠杆3.0 = 优先级12.0
+2. leverage_awareness: 距离8分 × 杠杆3.0 = 优先级24.0
+3. strategic_thinking: 距离3分 × 杠杆2.5 = 优先级7.5
+```
+
+### 自检清单
 
 每次评分后自检：
 
