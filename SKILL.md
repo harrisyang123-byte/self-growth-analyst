@@ -76,6 +76,27 @@
 
 ---
 
+## Step 3.5: 深度闸门 — 信号厚度判定
+
+调用 `core/signal_depth_gate.md`（L1常驻引擎）。
+
+### 判定流程
+
+1. 对 Step 3 的 Observer 输出做信号厚度评分（0-10）
+   - ≥ 5分 → 继续 Step 4
+   - < 5分 → 进入缺口探测
+
+2. 缺口探测
+   - 确定缺口类型（行为缺失/归因缺失/情绪模糊/时间缺失）
+   - 生成锚定追问（引用 retrieval_index 高频模式 或 active_conflicts 或 pending_actions）
+   - 追问 ≤ 2次
+
+3. 2次追问后仍 < 5分
+   - 归档 [极薄输入]，不触发 Step 5-6
+   - 输出 NO_REPLY
+
+---
+
 ## Step 4: Archivist 写入
 
 ### 4.1 写入每日存档
@@ -237,6 +258,7 @@
 | veracity_checker | `core/veracity_checker.md` | 重大成功/失败 |
 | exam_answer_handler | `core/exam_answer_handler.md` | 周/月考答案模式 |
 | weekly_strategic_audit | `core/weekly_strategic_audit.md` | 每周日（cron触发） |
+| signal_depth_gate | `core/signal_depth_gate.md` | 每次碎碎念（L1常驻，紧跟linguistic_analyzer）|
 
 ---
 

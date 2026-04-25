@@ -125,7 +125,23 @@
 
 ### L1 常驻引擎（每次碎碎念必加载）
 - linguistic_analyzer.md — 归因/情绪/防卫分析
+- signal_depth_gate.md — 信号厚度判定+缺口探测（L1新增）
 - auto_insight_generator.md — 三段式自动洞察
+
+### 深度闸门判定（L1级）
+
+在 linguistic_analyzer 执行后、进入分析引擎前：
+
+1. 对 linguistic_analyzer 输出做信号厚度评分（0-10）：
+   - 具体行为(3) + 归因指向(2) + 情绪具体(2) + 时间锚定(2) + 涉及维度(1)
+   
+2. 评分 ≥ 5 → 继续进入 Step 5 分析引擎
+
+3. 评分 < 5 → 缺口探测：
+   - 确定缺口类型（行为缺失/归因缺失/情绪模糊/时间缺失）
+   - 生成锚定追问（引用 retrieval_index / active_conflicts / pending_actions）
+   - 追问 ≤ 2次
+   - 2次后仍 < 5 → 归档 [极薄输入]，NO_REPLY
 
 ### L2 触发引擎（关键词/条件命中才加载）
 - habit_behavior_engine.md — "知道但不做"关键词命中时
