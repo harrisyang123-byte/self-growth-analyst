@@ -25,6 +25,34 @@
 
 ##### 逆向重建流程
 1. 从 retrieval_index.json 的 patterns.dimensions 提取每个日期的维度触发记录
+
+#### 聚合算法（伪代码）
+```
+date_map = {}  # 空map: date -> [维度列表]
+
+# 遍历 dimensions
+for dimension, date_list in retrieval_index.dimensions.items():
+    for date in date_list:
+        if date not in date_map:
+            date_map[date] = []
+        date_map[date].append(dimension)
+
+# 生成骨架文件
+for date, dims in date_map.items():
+    filename = f"daily_raw/2026-{date}.md"
+    生成骨架文件，内容包含 dims
+```
+
+**示例**:
+- execution: ["04-12","04-14","04-15"]
+- communication: ["04-19","04-24"]
+→ 生成:
+  - daily_raw/2026-04-12.md → 维度: [execution]
+  - daily_raw/2026-04-14.md → 维度: [execution]
+  - daily_raw/2026-04-15.md → 维度: [execution]
+  - daily_raw/2026-04-19.md → 维度: [communication]
+  - daily_raw/2026-04-24.md → 维度: [communication]
+
 2. 从 dimensions 字段获取每个维度的触发日期列表
 3. 为每个有触发记录的日期生成骨架文件
 
