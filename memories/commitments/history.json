@@ -1,45 +1,11 @@
 {
   "completed": [],
-  "violated": [
-    {
-      "id": "c_2026-04-26_energy_001",
-      "content": "周五、周六凌晨1点是硬性截止时间（周日至周四23:00前睡）",
-      "source": {
-        "date": "2026-04-26",
-        "analysis_ref": "insights/2026-04-26.json",
-        "user_quote": "好，你的建议我觉得很中肯，采纳。"
-      },
-      "dimensions": [
-        "health_management",
-        "execution",
-        "time_management"
-      ],
-      "verification": {
-        "type": "recurrence",
-        "condition": "连续2周周五、六达标",
-        "check_interval": "weekly"
-      },
-      "created_at": "2026-04-26T13:30:00+08:00",
-      "next_check": "2026-05-03",
-      "status": "active",
-      "history": [
-        {
-          "date": "2026-04-26",
-          "event": "created"
-        },
-        {
-          "date": "2026-04-26",
-          "event": "check_failed"
-        }
-      ],
-      "violated_at": "2026-04-26T13:18:42.721Z"
-    }
-  ],
+  "violated": [],
   "abandoned": [],
   "meta": {
-    "last_updated": "2026-04-26T13:18:42.721Z",
+    "last_updated": "2026-04-26T13:20:00+08:00",
     "total_completed": 0,
-    "total_violated": 1,
+    "total_violated": 0,
     "total_abandoned": 0
   }
 }
