@@ -74,9 +74,15 @@
 隐含假设: [推断的假设]
 ```
 
+### 语言风格分析（必须输出）
+- tone_markers: 语气标记（justification/deflection/neutralization/minimization）
+- defense_mechanisms: 防御机制（rationalization/minimization/blame_shift/denial）
+- emotional_temperature: 情感温度（hot/warm/cool）
+- implicit_intent: 推断出的隐层意图
+
 ---
 
-## Step 3.5: 深度闸门 — 信号厚度判定
+## Step 3.5: 深度闸门 — 信号厚度判定 [强制门禁]
 
 调用 `core/signal_depth_gate.md`（L1常驻引擎）。
 
@@ -94,6 +100,19 @@
 3. 2次追问后仍 < 5分
    - 归档 [极薄输入]，不触发 Step 5-6
    - 输出 NO_REPLY
+
+## Step 3.6: time_pattern_analyzer（L2触发）
+
+当以下条件满足时执行：
+- 消息时间在 00:00-06:00（凌晨）
+- 消息时间在 22:00-24:00（深夜）
+- 用户说"累了"/"困了"/"熬夜晚"
+
+输出：
+- time_inferred_state
+- day_pattern（周末放纵模式等）
+- boundary_violation
+- risk_indicators
 
 ---
 
@@ -259,6 +278,7 @@
 | exam_answer_handler | `core/exam_answer_handler.md` | 周/月考答案模式 |
 | weekly_strategic_audit | `core/weekly_strategic_audit.md` | 每周日（cron触发） |
 | signal_depth_gate | `core/signal_depth_gate.md` | 每次碎碎念（L1常驻，紧跟linguistic_analyzer）|
+| time_pattern_analyzer | `core/time_pattern_analyzer.md` | L2按需触发（凌晨/深夜消息时）|
 
 ---
 
