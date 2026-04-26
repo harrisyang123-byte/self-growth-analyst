@@ -1,11 +1,13 @@
 /**
  * insight_persistence.js
  * 洞察持久化工具
- * 
+ *
  * 用法：
  *   node insight_persistence.js archive <json_payload>
  *   node insight_persistence.js load [--dimensions <dims>] [--limit <n>]
- *   node insight_persistence.js link <date> <link_type> <linked_date> <note>
+ *
+ * 注意：cross_period_links 由 agent 手动标注，不做自动推断。
+ * 相似度匹配已移除——links 字段在归档时由分析 agent 填写。
  */
 
 const fs = require('fs');
@@ -20,6 +22,7 @@ function ensureInsightsDir() {
 }
 
 function getNextSeq(date) {
+  if (!fs.existsSync(INSIGHTS_DIR)) return 1;
   const existing = fs.readdirSync(INSIGHTS_DIR)
     .filter(f => f.startsWith(date))
     .map(f => {
@@ -33,22 +36,23 @@ function getNextSeq(date) {
 function archiveInsight(payload) {
   ensureInsightsDir();
   const date = payload.date || new Date().toISOString().split('T')[0];
-  const seq = getNextSeq(date);
-  const id = `ins_${date}_${String(seq).padStart(3, '0')}`;
-  
+  const seq = payload.id ? parseInt(payload.id.split('_')[2]) : getNextSeq(date);
+  const id = payload.id || `ins_${date}_${String(seq).padStart(3, '0')}`;
+
   const insight = {
     id,
     ...payload,
+    date,
     created_at: new Date().toISOString()
   };
-  
+
   const filePath = path.join(INSIGHTS_DIR, `${date}.json`);
   let existing = [];
   if (fs.existsSync(filePath)) {
     existing = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
     if (!Array.isArray(existing)) existing = [existing];
   }
-  
+
   // 如果当天已有同名id，更新；否则追加
   const idx = existing.findIndex(i => i.id === id);
   if (idx >= 0) {
@@ -56,7 +60,7 @@ function archiveInsight(payload) {
   } else {
     existing.push(insight);
   }
-  
+
   fs.writeFileSync(filePath, JSON.stringify(existing, null, 2), 'utf-8');
   return { ok: true, id, insight };
 }
@@ -66,14 +70,14 @@ function loadRelatedInsights({ dimensions, limit = 10 }) {
   ensureInsightsDir();
   const files = fs.readdirSync(INSIGHTS_DIR).sort();
   const results = [];
-  
+
   for (const file of files.reverse()) {
     if (!file.endsWith('.json')) continue;
     const content = JSON.parse(fs.readFileSync(path.join(INSIGHTS_DIR, file), 'utf-8'));
     const insights = Array.isArray(content) ? content : [content];
-    
+
     for (const insight of insights) {
-      if (!dimensions) {
+      if (!dimensions || dimensions.length === 0) {
         results.push(insight);
       } else {
         const hasOverlap = insight.dimensions_triggered?.some(d => dimensions.includes(d));
@@ -83,36 +87,8 @@ function loadRelatedInsights({ dimensions, limit = 10 }) {
     }
     if (results.length >= limit) break;
   }
-  
-  return results;
-}
 
-// ---------- find links ----------
-function findCrossPeriodLinks(newRootCause, dimensions) {
-  const related = loadRelatedInsights({ dimensions, limit: 20 });
-  const links = [];
-  
-  for (const insight of related) {
-    if (insight.root_cause && newRootCause !== insight.root_cause) {
-      // 简单的关键词匹配作为相似度代理
-      const newWords = new Set(newRootCause.match(/\w{2,}/g) || []);
-      const oldWords = new Set(insight.root_cause.match(/\w{2,}/g) || []);
-      const intersection = [...newWords].filter(w => oldWords.has(w));
-      const similarity = intersection.length / Math.max(newWords.size, oldWords.size);
-      
-      if (similarity > 0.4) {
-        links.push({
-          type: 'same_root_cause',
-          linked_date: insight.date,
-          linked_insight_id: insight.id,
-          similarity,
-          note: `两件事的根因都是：${insight.root_cause.substring(0, 50)}...`
-        });
-      }
-    }
-  }
-  
-  return links;
+  return results;
 }
 
 // ---------- CLI ----------
@@ -127,10 +103,6 @@ if (cmd === 'archive') {
   const dimensions = dimsIdx >= 0 ? args[dimsIdx + 1].split(',') : null;
   const limit = limIdx >= 0 ? parseInt(args[limIdx + 1]) : 10;
   console.log(JSON.stringify(loadRelatedInsights({ dimensions, limit }), null, 2));
-} else if (cmd === 'links') {
-  const [newRootCause, dimsStr] = args;
-  const dimensions = dimsStr ? dimsStr.split(',') : null;
-  console.log(JSON.stringify(findCrossPeriodLinks(newRootCause, dimensions), null, 2));
 } else {
-  console.log('Usage: node insight_persistence.js archive|load|links');
+  console.log('Usage: node insight_persistence.js archive <json> | load [--dimensions <dims>] [--limit <n>]');
 }

@@ -2,19 +2,32 @@
   "patterns": {
     "计划被打断就跳过": {
       "occurrences": [
-        {"date": "2026-04-12", "context": "健身计划被工作打断→跳过"},
-        {"date": "2026-04-13", "context": "工作打断→跳过"},
-        {"date": "2026-04-14", "context": "工作打断→跳过"},
-        {"date": "2026-04-15", "context": "健身计划被工作打断→跳过"}
+        {
+          "date": "2026-04-12",
+          "context": "健身计划被工作打断→跳过"
+        },
+        {
+          "date": "2026-04-13",
+          "context": "工作打断→跳过"
+        },
+        {
+          "date": "2026-04-14",
+          "context": "工作打断→跳过"
+        },
+        {
+          "date": "2026-04-15",
+          "context": "健身计划被工作打断→跳过"
+        }
       ],
       "frequency": 4,
-      "recent_frequency": 0,
+      "recent_frequency": 4,
       "recency_decay": {
         "lambda": 0.05,
         "last_occurrence": "2026-04-15",
-        "days_since_last": 11
+        "days_since_last": 11,
+        "reference_date": "2026-04-26"
       },
-      "pattern_score": 1.4,
+      "pattern_score": 2.31,
       "first_seen": "2026-04-12",
       "last_seen": "2026-04-15",
       "note": "4天内4次承认",
@@ -22,24 +35,52 @@
     },
     "知道但不做": {
       "occurrences": [
-        {"date": "2026-04-12", "context": "补偿机制定了但没执行"},
-        {"date": "2026-04-13", "context": "知道但不做"},
-        {"date": "2026-04-14", "context": "知道但不做"},
-        {"date": "2026-04-15", "context": "知道但不做"},
-        {"date": "2026-04-16", "context": "知道但不做"},
-        {"date": "2026-04-19", "context": "知道但不做"},
-        {"date": "2026-04-22", "context": "验证失败但没改"},
-        {"date": "2026-04-24", "context": "知道但不做"},
-        {"date": "2026-04-25", "context": "周六4:30睡，根因同源"}
+        {
+          "date": "2026-04-12",
+          "context": "补偿机制定了但没执行"
+        },
+        {
+          "date": "2026-04-13",
+          "context": "知道但不做"
+        },
+        {
+          "date": "2026-04-14",
+          "context": "知道但不做"
+        },
+        {
+          "date": "2026-04-15",
+          "context": "知道但不做"
+        },
+        {
+          "date": "2026-04-16",
+          "context": "知道但不做"
+        },
+        {
+          "date": "2026-04-19",
+          "context": "知道但不做"
+        },
+        {
+          "date": "2026-04-22",
+          "context": "验证失败但没改"
+        },
+        {
+          "date": "2026-04-24",
+          "context": "知道但不做"
+        },
+        {
+          "date": "2026-04-25",
+          "context": "周六4:30睡，根因同源"
+        }
       ],
       "frequency": 10,
-      "recent_frequency": 2,
+      "recent_frequency": 9,
       "recency_decay": {
         "lambda": 0.05,
         "last_occurrence": "2026-04-25",
-        "days_since_last": 1
+        "days_since_last": 1,
+        "reference_date": "2026-04-26"
       },
-      "pattern_score": 9.5,
+      "pattern_score": 8.56,
       "first_seen": "2026-04-12",
       "last_seen": "2026-04-25",
       "note": "持续出现，知道问题但停在知道层面",
@@ -47,104 +88,223 @@
     },
     "多方向并行缺乏聚焦": {
       "occurrences": [
-        {"date": "2026-04-12", "context": "公众号+视频+AI开发同时跑"},
-        {"date": "2026-04-13", "context": "多方向并行"},
-        {"date": "2026-04-14", "context": "多方向并行"},
-        {"date": "2026-04-15", "context": "多方向并行"},
-        {"date": "2026-04-16", "context": "多方向并行"},
-        {"date": "2026-04-19", "context": "多方向并行"},
-        {"date": "2026-04-22", "context": "AI开发+视频+Agent研究"},
-        {"date": "2026-04-24", "context": "多方向并行"},
-        {"date": "2026-04-25", "context": "AI开发+视频+Agent研究+公众号"}
+        {
+          "date": "2026-04-12",
+          "context": "公众号+视频+AI开发同时跑"
+        },
+        {
+          "date": "2026-04-13",
+          "context": "多方向并行"
+        },
+        {
+          "date": "2026-04-14",
+          "context": "多方向并行"
+        },
+        {
+          "date": "2026-04-15",
+          "context": "多方向并行"
+        },
+        {
+          "date": "2026-04-16",
+          "context": "多方向并行"
+        },
+        {
+          "date": "2026-04-19",
+          "context": "多方向并行"
+        },
+        {
+          "date": "2026-04-22",
+          "context": "AI开发+视频+Agent研究"
+        },
+        {
+          "date": "2026-04-24",
+          "context": "多方向并行"
+        },
+        {
+          "date": "2026-04-25",
+          "context": "AI开发+视频+Agent研究+公众号"
+        }
       ],
       "frequency": 11,
-      "recent_frequency": 3,
+      "recent_frequency": 9,
       "recency_decay": {
         "lambda": 0.05,
         "last_occurrence": "2026-04-25",
-        "days_since_last": 1
+        "days_since_last": 1,
+        "reference_date": "2026-04-26"
       },
-      "pattern_score": 10.5,
+      "pattern_score": 8.56,
       "first_seen": "2026-04-12",
       "last_seen": "2026-04-25",
       "note": "公众号/视频/知识图谱/笔记同时推进",
-      "rank": 0
+      "rank": 2
     },
     "表达不清晰自知": {
       "occurrences": [
-        {"date": "2026-04-19", "context": "自己发现表达不清晰"},
-        {"date": "2026-04-24", "context": "承认需要提升总结能力"},
-        {"date": "2026-04-24", "context": "表达不清晰自知但无行动"}
+        {
+          "date": "2026-04-19",
+          "context": "自己发现表达不清晰"
+        },
+        {
+          "date": "2026-04-24",
+          "context": "承认需要提升总结能力"
+        },
+        {
+          "date": "2026-04-24",
+          "context": "表达不清晰自知但无行动"
+        }
       ],
       "frequency": 3,
-      "recent_frequency": 2,
+      "recent_frequency": 3,
       "recency_decay": {
         "lambda": 0.05,
         "last_occurrence": "2026-04-24",
-        "days_since_last": 2
+        "days_since_last": 2,
+        "reference_date": "2026-04-26"
       },
-      "pattern_score": 2.8,
+      "pattern_score": 2.71,
       "first_seen": "2026-04-19",
       "last_seen": "2026-04-24",
       "note": "主动承认但无改变行动",
-      "rank": 5
+      "rank": 3
     },
     "打感情牌获取信息": {
       "occurrences": [
-        {"date": "2026-04-24", "context": "用叫大哥方式获取信息"},
-        {"date": "2026-04-24", "context": "有心理负担"}
+        {
+          "date": "2026-04-24",
+          "context": "用叫大哥方式获取信息"
+        },
+        {
+          "date": "2026-04-24",
+          "context": "有心理负担"
+        }
       ],
       "frequency": 2,
       "recent_frequency": 2,
       "recency_decay": {
         "lambda": 0.05,
         "last_occurrence": "2026-04-24",
-        "days_since_last": 2
+        "days_since_last": 2,
+        "reference_date": "2026-04-26"
       },
-      "pattern_score": 1.9,
+      "pattern_score": 1.81,
       "first_seen": "2026-04-24",
       "last_seen": "2026-04-24",
       "note": "用叫大哥方式获取信息，有心理负担",
-      "rank": 6
+      "rank": 5
     },
     "用结果堵追问": {
       "occurrences": [
-        {"date": "2026-04-15", "context": "被追问时给正面结果来终结对话"}
+        {
+          "date": "2026-04-15",
+          "context": "被追问时给正面结果来终结对话"
+        }
       ],
       "frequency": 1,
-      "recent_frequency": 0,
+      "recent_frequency": 1,
       "recency_decay": {
         "lambda": 0.05,
         "last_occurrence": "2026-04-15",
-        "days_since_last": 11
+        "days_since_last": 11,
+        "reference_date": "2026-04-26"
       },
-      "pattern_score": 0.35,
+      "pattern_score": 0.58,
       "first_seen": "2026-04-15",
       "last_seen": "2026-04-15",
       "note": "被追问时给正面结果来终结对话",
-      "rank": 7
+      "rank": 6
     }
   },
   "dimensions": {
-    "execution": ["2026-04-12","2026-04-13","2026-04-14","2026-04-15","2026-04-16","2026-04-19","2026-04-22","2026-04-24","2026-04-25"],
-    "decision": ["2026-04-14","2026-04-15","2026-04-16"],
-    "psychological": ["2026-04-12","2026-04-14","2026-04-15","2026-04-22"],
-    "business_acumen": ["2026-04-12","2026-04-15","2026-04-22","2026-04-24"],
-    "leadership": ["2026-04-14","2026-04-15","2026-04-16","2026-04-24"],
-    "political_wisdom": ["2026-04-16"],
-    "communication": ["2026-04-19","2026-04-24"],
-    "creativity": ["2026-04-19"],
-    "risk_management": ["2026-04-19","2026-04-22"],
-    "time_management": ["2026-04-12","2026-04-13","2026-04-14","2026-04-15","2026-04-25"],
-    "learning": ["2026-04-13"],
-    "self_awareness": ["2026-04-15","2026-04-16","2026-04-24","2026-04-25"],
-    "health_management": ["2026-04-25"]
+    "execution": [
+      "2026-04-12",
+      "2026-04-13",
+      "2026-04-14",
+      "2026-04-15",
+      "2026-04-16",
+      "2026-04-19",
+      "2026-04-22",
+      "2026-04-24",
+      "2026-04-25"
+    ],
+    "decision": [
+      "2026-04-14",
+      "2026-04-15",
+      "2026-04-16"
+    ],
+    "psychological": [
+      "2026-04-12",
+      "2026-04-14",
+      "2026-04-15",
+      "2026-04-22"
+    ],
+    "business_acumen": [
+      "2026-04-12",
+      "2026-04-15",
+      "2026-04-22",
+      "2026-04-24"
+    ],
+    "leadership": [
+      "2026-04-14",
+      "2026-04-15",
+      "2026-04-16",
+      "2026-04-24"
+    ],
+    "political_wisdom": [
+      "2026-04-16"
+    ],
+    "communication": [
+      "2026-04-19",
+      "2026-04-24"
+    ],
+    "creativity": [
+      "2026-04-19"
+    ],
+    "risk_management": [
+      "2026-04-19",
+      "2026-04-22"
+    ],
+    "time_management": [
+      "2026-04-12",
+      "2026-04-13",
+      "2026-04-14",
+      "2026-04-15",
+      "2026-04-25"
+    ],
+    "learning": [
+      "2026-04-13"
+    ],
+    "self_awareness": [
+      "2026-04-15",
+      "2026-04-16",
+      "2026-04-24",
+      "2026-04-25"
+    ],
+    "health_management": [
+      "2026-04-25"
+    ]
   },
   "pending_tracking": [
-    {"type": "知道但不做", "since": "2026-04-12", "desc": "计划执行/补偿机制停在知道层面无行动"},
-    {"type": "多方向并行", "since": "2026-04-12", "desc": "公众号/视频/知识图谱/笔记 多方向推进但缺乏聚焦"},
-    {"type": "表达不清晰", "since": "2026-04-19", "desc": "自知但无改变"},
-    {"type": "政治智慧", "since": "2026-04-16", "desc": "让领导满意=升职等式是否成立？"}
+    {
+      "type": "知道但不做",
+      "since": "2026-04-12",
+      "desc": "计划执行/补偿机制停在知道层面无行动"
+    },
+    {
+      "type": "多方向并行",
+      "since": "2026-04-12",
+      "desc": "公众号/视频/知识图谱/笔记 多方向推进但缺乏聚焦"
+    },
+    {
+      "type": "表达不清晰",
+      "since": "2026-04-19",
+      "desc": "自知但无改变"
+    },
+    {
+      "type": "政治智慧",
+      "since": "2026-04-16",
+      "desc": "让领导满意=升职等式是否成立？"
+    }
   ],
   "recency_config": {
     "lambda": 0.05,
@@ -153,7 +313,7 @@
     "reference_date": "2026-04-26"
   },
   "metadata": {
-    "last_updated": "2026-04-26T13:45:00+08:00",
+    "last_updated": "2026-04-26T06:36:53.578Z",
     "version": "3.0",
     "note": "v3.0: 升级frequency为带recency_decay的pattern_score；新增occurrences数组；新增rank排序"
   }

@@ -9,7 +9,7 @@
   "new_commitments": [],
   "cross_period_links": [],
   "linguistic_signals": {
-    "tone_markers": [],
+    "tone_markers": ["justification", "deflection"],
     "defense_mechanisms": ["rationalization"],
     "emotional_temperature": "anxious"
   },

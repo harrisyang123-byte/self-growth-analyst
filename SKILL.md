@@ -26,10 +26,13 @@
 按顺序读取以下文件：
 
 1. `memories/short_term/working_context.md` — 近7天摘要
-2. `memories/short_term/pending_actions.json` — 待追踪行动
-3. `memories/short_term/active_conflicts.md` — 当前矛盾
-4. 扫描 `memories/long_term/retrieval_index.json` 中的 patterns，检查近7天是否有重复（≥2次），如有则标记模式信号
-5. 检查 `memories/.orchestrator_state.json` 调度状态
+2. `memories/commitments/active.json` — **活跃承诺**（替代旧的 pending_actions.json）
+3. `memories/insights/` 下最新一条洞察文件（YYYY-MM-DD.json）— **历史洞察上下文**
+4. `memories/short_term/active_conflicts.md` — 当前矛盾
+5. 扫描 `memories/long_term/retrieval_index.json` 中的 patterns，检查近7天是否有重复（≥2次），如有则标记模式信号
+6. 检查 `memories/.orchestrator_state.json` 调度状态
+
+**承诺到期检查：若 active.json 中任意 commitment 的 next_check ≤ 今天，优先处理承诺验证，再进入后续流程。**
 
 **加载完整性检查：任一文件缺失，本次对话处于失忆状态，仍继续执行但不引用该文件内容。**
 
@@ -200,11 +203,17 @@
 
 在所有引擎输出中，找到"最深的根因"和"最表面的卡点"，打包成核心诊断。
 
+**融合前——加载历史洞察作为上下文：**
+- 根据 triggered_dimensions，加载 `memories/insights/` 中同维度的历史洞察（最近1条）
+- 若历史洞察的 root_cause 与本次分析相同 → 标记为「**复发模式**」，优先级 +1
+- 在输出 JSON 中新增 `historical_context` 字段
+
 融合规则：
 1. 如果 habit_behavior_engine 输出 M不足（动机不足），同时 psychodynamic_engine 也输出深层恐惧 → 根因是恐惧，动机不足是表层表现
-2. 如果多个引擎同时输出，且没有明显层级 → 选择最近7天频率最高的模式作为主诊断
+2. 如果多个引擎同时输出，且没有明显层级 → 选择 pattern_score 最高的模式作为主诊断
 3. 如果模式A是模式B的上游（如"害怕失败"导致"知道但不做"）→ 优先处理上游
 4. 如果没有引擎输出异常，但模式频率≥3 → 以模式为主诊断
+5. **【新增】** 如果同维度历史洞察的 root_cause 与本次相同 → 标记为「复发模式」，在理由中注明"与 YYYY-MM-DD 洞察同根因"
 
 输出格式：
 ```json
@@ -213,7 +222,12 @@
   "surface_diagnosis": "表面卡点（行为层面）",
   "triggered_dimensions": ["execution", "communication"],
   "recommended_skill_dimension": "execution",
-  "reason": "根因是恐惧，但execution是当前最紧迫的触发点"
+  "historical_context": {
+    "linked_date": "2026-04-26",
+    "root_cause": "三套心理账户导致精力透支无法被感知",
+    "recurrence": true
+  },
+  "reason": "与2026-04-26洞察同根因，复发模式，优先级+1"
 }
 ```
 
@@ -230,6 +244,7 @@
 | 触发类型 | 条件 | 干预强度 |
 |----------|------|----------|
 | **危险触发** | 自我伤害/极端失控 | 保护模式（跳Step 7） |
+| **承诺到期未验证** | active.json 中 next_check ≤ 今天 | **承诺验证优先**：先问"上次答应 X 做到了吗"，再进入当前分析 |
 | **频率触发+信号** | 近7天≥2次重复 **且** 阻抗/防卫/自我批判信号 | 深度干预 |
 | **单一频率** | 近7天≥2次重复模式 | 标准干预 |
 | **单一信号** | 阻抗/防卫/自我批判信号 | 微反馈 |
@@ -242,7 +257,13 @@
    - **1个问题**：直击他没意识到的盲点，有证据（日期+内容）
    - **1个行动**：具体、可验证、24小时内可执行
 4. 通过 Feishu message tool 发送
-5. 更新 `memories/short_term/pending_actions.json`
+5. 更新 `memories/commitments/active.json`（新增承诺）或标记完成/违约（已到期承诺）
+
+**承诺验证执行流程：**
+1. 加载 active.json 中 next_check ≤ 今天的所有 commitment
+2. 对每个到期承诺，先问"你上次答应了【承诺内容】，做到了吗？"
+3. 根据用户回答：达标 → 移入 history.json completed；未达标 → 违约原因记录，移入 history.json violated，生成新洞察
+4. 承诺验证完成后，再进入本次分析的干预决策
 
 ### 不触发
 
@@ -271,14 +292,15 @@
 | 引擎 | 路径 | 调用时机 |
 |------|------|----------|
 | linguistic_analyzer | `core/linguistic_analyzer.md` | 每次碎碎念 |
+| signal_depth_gate | `core/signal_depth_gate.md` | 每次碎碎念（L1常驻，紧跟linguistic_analyzer）|
+| time_pattern_analyzer | `core/time_pattern_analyzer.md` | L2按需触发（凌晨/深夜消息时）|
 | habit_behavior_engine | `core/habit_behavior_engine.md` | "知道但不做"时 |
 | psychodynamic_engine | `core/psychodynamic_engine.md` | 关键词触发 |
 | strategic_alignment_engine | `core/strategic_alignment_engine.md` | 周考/月考时 |
 | veracity_checker | `core/veracity_checker.md` | 重大成功/失败 |
 | exam_answer_handler | `core/exam_answer_handler.md` | 周/月考答案模式 |
 | weekly_strategic_audit | `core/weekly_strategic_audit.md` | 每周日（cron触发） |
-| signal_depth_gate | `core/signal_depth_gate.md` | 每次碎碎念（L1常驻，紧跟linguistic_analyzer）|
-| time_pattern_analyzer | `core/time_pattern_analyzer.md` | L2按需触发（凌晨/深夜消息时）|
+| commitment_checker | `scripts/commitment_tracker.js` | 承诺到期检查（Step 1 优先触发）|
 
 ---
 
@@ -287,16 +309,20 @@
 | 文件 | 用途 |
 |------|------|
 | `memories/daily_raw/YYYY-MM-DD.md` | 每日碎碎念存档 |
+| `memories/commitments/active.json` | **活跃承诺**（含验证条件+到期时间） |
+| `memories/commitments/history.json` | **承诺历史**（完成/违约/放弃记录） |
+| `memories/insights/YYYY-MM-DD.json` | **洞察归档**（每次深度分析结论） |
 | `memories/short_term/working_context.md` | 近7天摘要 |
-| `memories/short_term/pending_actions.json` | 待追踪行动 |
 | `memories/short_term/active_conflicts.md` | 当前矛盾 |
-| `memories/long_term/retrieval_index.json` | 模式追踪 |
+| `memories/long_term/retrieval_index.json` | 模式追踪（含 pattern_score 时间权重） |
 | `memories/long_term/cognitive_bias_log.md` | 偏误记录 |
 | `memories/long_term/personal_bias_tracker.md` | 固有偏误 |
 | `memories/long_term/cross_dimension_rules.md` | 跨维度规则 |
 | `memories/dynamic_baseline.json` | 行为概率基线 |
 | `memories/.orchestrator_state.json` | 调度状态 |
 | `memories/.active_exam.json` | 活动中的考试（24h有效期） |
+
+> ⚠️ `pending_actions.json` 已废弃，承诺追踪改用 `memories/commitments/active.json`
 
 ---
 

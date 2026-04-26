@@ -79,7 +79,8 @@
 1. 判断输入类型：碎碎念 / 考题回答 / 主动提问 / 紧急信号
 2. 如果是紧急信号（自我伤害/极端情绪），立即进入保护模式，跳到 Step 5
 3. 如果是考题回答，交给 `core/exam_answer_handler.md` 处理
-4. 否则：从碎碎念中提取结构化行为数据
+4. **承诺到期检查**：读取 `memories/commitments/active.json`，若存在 next_check ≤ 今天 → 优先执行承诺验证流程，再继续
+5. 否则：从碎碎念中提取结构化行为数据
 
 ### Step 2: 归档（Archivist）
 1. 将行为数据追加到当日 `memories/daily_raw/YYYY-MM-DD.md` 的 `## 行为事件` 区域
@@ -113,15 +114,20 @@
 2. 执行 `diagnosis_flow`
 3. 生成1个核心问题 + 1个具体可执行的微小行动
 4. 通过 message tool 发送（Feishu）
-5. 在 `.orchestrator_state.json` 的 `pending_actions` 中记录
+5. 在 `memories/commitments/active.json` 中新增承诺（或到期验证后移入 history.json）
 
 ### Step 5.5: Diagnostician 融合
 
+**融合前——加载历史洞察作为上下文：**
+- 根据 triggered_dimensions，加载 `memories/insights/` 中同维度的历史洞察（最近1条）
+- 若历史洞察的 root_cause 与本次分析相同 → 标记为「复发模式」，优先级 +1
+
 融合规则：
 1. habit_behavior + psychodynamic 同时输出 → 深层恐惧优先
-2. 多引擎无层级 → 选7天频率最高模式为主诊断
+2. 多引擎无层级 → 选 pattern_score 最高模式为主诊断（非原始 frequency）
 3. 模式A是模式B上游 → 优先处理上游
 4. 无引擎异常但频率≥3 → 以模式为主诊断
+5. **【新增】** 同维度历史洞察 root_cause 与本次相同 → 标注「复发模式」，注明 linked_date
 
 输出：
 ```json
@@ -129,7 +135,12 @@
   "primary_diagnosis": "...",
   "surface_diagnosis": "...",
   "triggered_dimensions": [...],
-  "recommended_skill_dimension": "..."
+  "recommended_skill_dimension": "...",
+  "historical_context": {
+    "linked_date": "2026-04-26",
+    "root_cause": "三套心理账户导致精力透支",
+    "recurrence": true
+  }
 }
 ```
 
