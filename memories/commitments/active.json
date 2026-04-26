@@ -8,7 +8,9 @@
         "analysis_ref": "insights/2026-04-15.json",
         "user_quote": "好，每天补15分钟"
       },
-      "dimensions": ["execution"],
+      "dimensions": [
+        "execution"
+      ],
       "verification": {
         "type": "recurrence",
         "condition": "连续7天每天完成15分钟",
@@ -18,8 +20,15 @@
       "next_check": "2026-04-22",
       "status": "active",
       "history": [
-        {"date": "2026-04-15", "event": "created"},
-        {"date": "2026-04-22", "event": "check_skipped", "note": "周复盘时未验证"}
+        {
+          "date": "2026-04-15",
+          "event": "created"
+        },
+        {
+          "date": "2026-04-22",
+          "event": "check_skipped",
+          "note": "周复盘时未验证"
+        }
       ]
     },
     {
@@ -30,7 +39,9 @@
         "analysis_ref": "insights/2026-04-24.json",
         "user_quote": "好，下次汇报前先想清楚一句话"
       },
-      "dimensions": ["communication"],
+      "dimensions": [
+        "communication"
+      ],
       "verification": {
         "type": "milestone",
         "condition": "下次工作汇报时使用",
@@ -40,33 +51,15 @@
       "next_check": "2026-04-28",
       "status": "active",
       "history": [
-        {"date": "2026-04-24", "event": "created"}
-      ]
-    },
-    {
-      "id": "c_2026-04-26_energy_001",
-      "content": "周五、周六凌晨1点是硬性截止时间（周日至周四23:00前睡）",
-      "source": {
-        "date": "2026-04-26",
-        "analysis_ref": "insights/2026-04-26.json",
-        "user_quote": "好，你的建议我觉得很中肯，采纳。"
-      },
-      "dimensions": ["health_management", "execution", "time_management"],
-      "verification": {
-        "type": "recurrence",
-        "condition": "连续2周周五、六达标",
-        "check_interval": "weekly"
-      },
-      "created_at": "2026-04-26T13:30:00+08:00",
-      "next_check": "2026-05-03",
-      "status": "active",
-      "history": [
-        {"date": "2026-04-26", "event": "created"}
+        {
+          "date": "2026-04-24",
+          "event": "created"
+        }
       ]
     }
   ],
   "meta": {
-    "last_updated": "2026-04-26T13:30:00+08:00",
+    "last_updated": "2026-04-26T13:18:42.721Z",
     "total_active": 3
   }
 }
