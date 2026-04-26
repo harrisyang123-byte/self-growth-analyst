@@ -1,0 +1,41 @@
+{
+  "id": "ins_2026-04-26_001",
+  "date": "2026-04-26",
+  "source_message": "om_x100b51ee6c3a70a8b2093c30f86a6c8",
+  "depth_trigger": "Signal Depth Gate v2, score=9.5（极厚信号）",
+  "dimensions_triggered": ["execution", "health_management", "time_management"],
+  "root_cause": "三套心理账户（工作/放纵/表现）导致精力透支无法被感知——身体是一套账本，不认识用户设计的三套",
+  "user_agreed_changes": [
+    "合并为统一的精力账户",
+    "周五、周六凌晨1点是硬性截止",
+    "周日至周四23:00前睡觉"
+  ],
+  "new_commitments": ["c_2026-04-26_energy_001"],
+  "cross_period_links": [
+    {
+      "type": "same_root_cause",
+      "linked_date": "2026-04-12",
+      "linked_insight_id": "ins_2026-04-12_001",
+      "note": "知道但不做、计划被打断跳过的根因都是三账本系统——用账户分离规避自我问责"
+    },
+    {
+      "type": "escalation",
+      "linked_date": "2026-04-25",
+      "linked_insight_id": "ins_2026-04-25_001",
+      "note": "从'凌晨4:30睡'升级为'担心猝死'，身体已经在报警"
+    }
+  ],
+  "linguistic_signals": {
+    "tone_markers": ["justification", "deflection"],
+    "defense_mechanisms": ["rationalization", "deflection"],
+    "emotional_temperature": "cool (4/10)"
+  },
+  "time_pattern": {
+    "bucket": "00:00-06:00 凌晨",
+    "inferred_state": "亢奋/失眠/逃避",
+    "day_of_week": "周六",
+    "weekend_factor": 1.5,
+    "boundary_violation": true
+  },
+  "created_at": "2026-04-26T13:30:00+08:00"
+}

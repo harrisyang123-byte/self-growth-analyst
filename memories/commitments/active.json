@@ -1,0 +1,72 @@
+{
+  "commitments": [
+    {
+      "id": "c_2026-04-15_exec_001",
+      "content": "每天15分钟补偿机制",
+      "source": {
+        "date": "2026-04-15",
+        "analysis_ref": "insights/2026-04-15.json",
+        "user_quote": "好，每天补15分钟"
+      },
+      "dimensions": ["execution"],
+      "verification": {
+        "type": "recurrence",
+        "condition": "连续7天每天完成15分钟",
+        "check_interval": "daily"
+      },
+      "created_at": "2026-04-15T00:00:00+08:00",
+      "next_check": "2026-04-22",
+      "status": "active",
+      "history": [
+        {"date": "2026-04-15", "event": "created"},
+        {"date": "2026-04-22", "event": "check_skipped", "note": "周复盘时未验证"}
+      ]
+    },
+    {
+      "id": "c_2026-04-24_comm_001",
+      "content": "汇报前用一句话确认核心观点",
+      "source": {
+        "date": "2026-04-24",
+        "analysis_ref": "insights/2026-04-24.json",
+        "user_quote": "好，下次汇报前先想清楚一句话"
+      },
+      "dimensions": ["communication"],
+      "verification": {
+        "type": "milestone",
+        "condition": "下次工作汇报时使用",
+        "check_interval": "one_time"
+      },
+      "created_at": "2026-04-24T00:00:00+08:00",
+      "next_check": "2026-04-28",
+      "status": "active",
+      "history": [
+        {"date": "2026-04-24", "event": "created"}
+      ]
+    },
+    {
+      "id": "c_2026-04-26_energy_001",
+      "content": "周五、周六凌晨1点是硬性截止时间（周日至周四23:00前睡）",
+      "source": {
+        "date": "2026-04-26",
+        "analysis_ref": "insights/2026-04-26.json",
+        "user_quote": "好，你的建议我觉得很中肯，采纳。"
+      },
+      "dimensions": ["health_management", "execution", "time_management"],
+      "verification": {
+        "type": "recurrence",
+        "condition": "连续2周周五、六达标",
+        "check_interval": "weekly"
+      },
+      "created_at": "2026-04-26T13:30:00+08:00",
+      "next_check": "2026-05-03",
+      "status": "active",
+      "history": [
+        {"date": "2026-04-26", "event": "created"}
+      ]
+    }
+  ],
+  "meta": {
+    "last_updated": "2026-04-26T13:30:00+08:00",
+    "total_active": 3
+  }
+}

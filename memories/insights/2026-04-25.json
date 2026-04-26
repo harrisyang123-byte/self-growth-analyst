@@ -1,0 +1,24 @@
+{
+  "id": "ins_2026-04-25_001",
+  "date": "2026-04-25",
+  "source_message": "om_xxx",
+  "depth_trigger": "周六4:30睡 + 担心猝死",
+  "dimensions_triggered": ["health_management", "execution", "time_management"],
+  "root_cause": "凌晨4:30睡觉是三套心理账户（工作/放纵/表现）透支的结果，身体已在报警（担心猝死）",
+  "user_agreed_changes": [],
+  "new_commitments": [],
+  "cross_period_links": [],
+  "linguistic_signals": {
+    "tone_markers": [],
+    "defense_mechanisms": ["rationalization"],
+    "emotional_temperature": "anxious"
+  },
+  "time_pattern": {
+    "bucket": "00:00-06:00 凌晨",
+    "inferred_state": "亢奋/逃避",
+    "day_of_week": "周六",
+    "weekend_factor": 1.5,
+    "boundary_violation": true
+  },
+  "created_at": "2026-04-26T00:00:00+08:00"
+}
